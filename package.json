@@ -6,22 +6,35 @@
     "type": "git",
     "url": "git@gitlab.corp.gandi.net:tim/caliopen.web.git"
   },
-  "author": "Gandi",
+  "author": "Caliopen",
   "private": false,
   "scripts": {
     "start": "DEBUG=caliopen.web:* NODE_ENV=development node ./bin/start",
-    "start:watch": "DEBUG=caliopen.web:* NODE_ENV=development ./node_modules/nodemon/bin/nodemon.js ./bin/start",
-    "start:production": "NODE_ENV=production ./node_modules/.bin/pm2 start ./bin/start --name caliopen-web",
-    "test": "node ./bin/test"
+    "start:watch": "DEBUG=caliopen.web:* NODE_ENV=development ./node_modules/.bin/nodemon ./bin/start",
+    "start:production": "NODE_ENV=production ./node_modules/.bin/pm2 -i -1 start ./bin/start --name caliopen-web",
+    "eslint": "./node_modules/.bin/eslint ./app",
+    "test": "./node_modules/.bin/mocha --recursive",
+    "release": "node ./bin/build",
+      "prerelease": "npm run test"
+  },
+  "engines": {
+    "node": ">=0.10"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.1",
+    "iron": "^2.1.3",
     "morgan": "~1.6.1",
-    "nodemon": "^1.4.1",
     "nunjucks": "^1.3.4",
     "pm2": "^0.14.7"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
+    "eslint": "^1.2.1",
+    "mocha": "^2.2.5",
+    "nodemon": "^1.4.1"
   }
 }

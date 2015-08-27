@@ -9,13 +9,13 @@ You will need the following things properly installed on your computer.
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
 
-## Installation
+## Installation (Development)
 
 * `git clone https://github.com/CaliOpen/caliopen.web.git` web
 * cd web
-* `npm install`
+* `./bin/install`
 
-## Running / Development
+## Running (Development)
 
 * `npm start` or `npm run start:watch` 
 * The webserver is available at [http://localhost:4000](http://localhost:4000).
@@ -26,7 +26,7 @@ You will need the following things properly installed on your computer.
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+TODO
 
 ## Further Reading / Useful Links
 

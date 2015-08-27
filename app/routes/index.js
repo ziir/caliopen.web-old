@@ -1,7 +1,4 @@
-var router = require('express').Router();
-
-router.get('/', function(req, res, next) {
-  res.render('test');
-});
-
-module.exports = router;
+module.exports = {
+  'auth': require('./auth'),
+  'api': require('./api')
+};

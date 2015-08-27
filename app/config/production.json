@@ -1,0 +1,11 @@
+{
+  "cookie": {
+    "signed": true,
+    "name": "caliopen.web",
+    "secret": "_4+%J;_F&?#!+mR&IsYq:Xg4A*wvse",
+    "max-age": ""
+  },
+  "seal": {
+    "secret": "D}(2$5q)#_#yKX90,+0d5?4**a6w"
+  }
+}
