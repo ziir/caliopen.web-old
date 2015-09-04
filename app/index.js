@@ -6,7 +6,7 @@ var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var nunjucks      = require('nunjucks');
 
-var app = express();
+var app           = express();
 
 var middlewares   = require('./middlewares')(app.get('env'));
 var routes        = require('./routes');
