@@ -1,6 +1,5 @@
-var auth = require('../lib/auth');
 var seal = require('../lib/seal');
-
+var auth = require('../lib/auth');
 var router = require('express').Router();
 
 router.get('/', function root(req, res, next) {
@@ -31,13 +30,8 @@ router.post('/login', function login(req, res, next) {
   values.username = req.body.username;
   values.password = req.body.password;
 
-  if (!values.username) {
-    errors.username = true;
-  }
-
-  if (!values.password) {
-    errors.password = true;
-  }
+  errors.username = !values.username;
+  errors.password = !values.errors;
 
   if (errors.length) {
     return res.render('login', { errors: errors, values: values });
@@ -46,7 +40,7 @@ router.post('/login', function login(req, res, next) {
   auth.authenticate(
     values.username,
     values.password,
-    function callback(response) {
+    function responseCallback(response) {
       seal.encode(
         response.body,
         req.config.seal.secret,
@@ -54,22 +48,24 @@ router.post('/login', function login(req, res, next) {
           if (err || !seal) {
             next(err || new Error('Unexpected Error'));
           }
-          // FIXME : Use config
-          res.cookie(config.cookie.name, seal, { maxAge: 3600 });
+          res.cookie(config.cookie.name, seal, config.cookie.options);
         }
       );
 
-      res.status(response.statusCode);
       if (req.accepts('json')) {
-        res.json(response);
-      } else {
-        // FIXME : Use config
-        res.redirect('/app');
+        res.status(response.statusCode);
+        return res.json(response);
       }
+
+      res.redirect(config.frontend.rootPath);
+    },
+    function errorCallback(error) {
+      error = error || new Error('Bad gateway');
+      error.status = 502;
+      console.log('errorCallback', error);
+      next(error);
     }
-  ).on('error', function errorCallback(e) {
-    next(e);
-  });
+  );
 });
 
 router.get('/logout', function logout(req, res, next) {

@@ -1,9 +1,23 @@
 {
+  "env": "production",
+  "frontend": {
+    "rootPath": "/app/"
+  },
+  "api": {
+    "prefix": "api",
+    "version": "v1",
+    "suffix": "api",
+    "host": "http://localhost",
+    "port": 6543,
+    "auth": "authentications"
+  },
   "cookie": {
-    "signed": true,
     "name": "caliopen.web",
-    "secret": "_4+%J;_F&?#!+mR&IsYq:Xg4A*wvse",
-    "max-age": ""
+    "options": {
+      "signed": true,
+      "secret": "_4+%J;_F&?#!+mR&IsYq:Xg4A*wvse",
+      "max-age": 3600
+    }
   },
   "seal": {
     "secret": "D}(2$5q)#_#yKX90,+0d5?4**a6w"
