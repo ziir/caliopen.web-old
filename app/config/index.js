@@ -1,7 +1,18 @@
+var path = require('path');
+
+var YAML = require('yamljs');
+
+
 module.exports = function envConfig(env) {
+  var filename;
+
   if (env === 'production') {
-    return require('./production.json');
+    filename = 'production.yaml';
   } else {
-    return require('./development.json');
+    filename = 'development.yaml';
   }
+
+  var config = YAML.load(path.resolve(filename));
+
+  return config;
 };

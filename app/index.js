@@ -11,6 +11,7 @@ var app           = express();
 var middlewares   = require('./middlewares')(app.get('env'));
 var routes        = require('./routes');
 
+
 app.use(logger('dev'));
 
 // view engine setup
@@ -39,9 +40,11 @@ app.use(['/api', '/auth'],
   middlewares.decodeCookie,
   middlewares.checkToken
 );
+
 app.use('/api', routes.api);
 
 app.use(['/auth/login', '/auth/signup'], middlewares.catchLoginErrors);
+
 app.use('/auth', routes.auth);
 
 // catch 404 and forward to error handler

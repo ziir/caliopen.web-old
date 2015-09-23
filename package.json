@@ -10,12 +10,12 @@
   "private": false,
   "scripts": {
     "start": "DEBUG=caliopen.web:* NODE_ENV=development node ./bin/start",
-    "start:watch": "DEBUG=caliopen.web:* NODE_ENV=development ./node_modules/.bin/nodemon ./bin/start",
-    "start:production": "NODE_ENV=production ./node_modules/.bin/pm2 -i -1 start ./bin/start --name caliopen-web",
-    "eslint": "./node_modules/.bin/eslint ./app",
-    "test": "./node_modules/.bin/mocha --recursive",
+    "start:watch": "DEBUG=caliopen.web:* NODE_ENV=development $(npm bin)/nodemon ./bin/start",
+    "start:production": "NODE_ENV=production pm2 -i -1 start ./bin/start --name caliopen-web",
+    "eslint": "$(npm bin)/eslint ./app",
+    "test": ".$(npm bin)/mocha --recursive",
     "release": "node ./bin/build",
-      "prerelease": "npm run test"
+    "prerelease": "npm test"
   },
   "engines": {
     "node": ">=0.10"
@@ -28,7 +28,9 @@
     "iron": "^2.1.3",
     "morgan": "~1.6.1",
     "nunjucks": "^1.3.4",
-    "pm2": "^0.14.7"
+    "object-assign": "^4.0.1",
+    "pm2": "^0.14.7",
+    "yamljs": "^0.2.4"
   },
   "devDependencies": {
     "chai": "^3.2.0",

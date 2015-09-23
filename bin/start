@@ -19,7 +19,9 @@ app.set('port', port);
  * Get environment and set it in Express.
  */
 
-var environment = process.env.NODE_ENV || 'development';
+var environment =
+  (process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()) || 'development';
+
 app.set('env', environment);
 
 /**

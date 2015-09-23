@@ -1,18 +1,18 @@
 var http = require('http');
-var config = require('../config')(process.env.NODE_ENV);
 
-// FIXME: use config
-var defaults = {
-  method: 'GET',
-  hostname: config.api.host,
-  port: config.api.port
-};
+var ObjectAssign = Object.assign || require('object-assign');
 
-function call(options, callback) {
-  var callOptions = Object.assign(options, defaults);
-  http.request(callOptions, callback);
+function query(params) {
+  var options = ObjectAssign({}, params, this.defaults);
+
+  console.log('Outgoing API query', '\n', options);
+
+  return http.request(options, options.response)
+    .on('response', options.response)
+    .on('success', options.success)
+    .on('error', options.error);
 }
 
 module.exports = {
-  call: call
+  query: query
 };

@@ -1,6 +1,9 @@
-var seal = require('../lib/seal');
-var auth = require('../lib/auth');
 var router = require('express').Router();
+
+var seal = require('../lib/seal');
+var Auth = require('../lib/Auth');
+
+var objectKeys = Object.keys || require('object-keys');
 
 router.get('/', function root(req, res, next) {
   res.redirect('/login');
@@ -11,6 +14,10 @@ router.get('/login', function loginPage(req, res, next) {
 });
 
 router.post('/login', function login(req, res, next) {
+  var config = req.config;
+
+  var auth = new Auth(config);
+
   var errors = {
     username: null,
     password: null,
@@ -22,7 +29,7 @@ router.post('/login', function login(req, res, next) {
     password: null
   };
 
-  if (!req.body || !Object.keys(req.body).length) {
+  if (!req.body || !objectKeys(req.body).length) {
     errors.body = new Error('Bad request');
     errors.body.status = 400;
   }
@@ -37,35 +44,33 @@ router.post('/login', function login(req, res, next) {
     return res.render('login', { errors: errors, values: values });
   }
 
-  auth.authenticate(
-    values.username,
-    values.password,
-    function responseCallback(response) {
+  auth.authenticate({
+    username: values.username,
+    password: values.password,
+
+    response: function responseCallback(response) {
+      if (req.accepts('json')) {
+        res.status(response.statusCode);
+      }
+    },
+    success: function successCallback() {
       seal.encode(
-        response.body,
+        user,
         req.config.seal.secret,
-        function callback(err, seal) {
+        function callback(err, sealed) {
           if (err || !seal) {
             next(err || new Error('Unexpected Error'));
           }
-          res.cookie(config.cookie.name, seal, config.cookie.options);
+          res.cookie(config.cookie.name, sealed, config.cookie.options);
         }
       );
-
-      if (req.accepts('json')) {
-        res.status(response.statusCode);
-        return res.json(response);
-      }
-
-      res.redirect(config.frontend.rootPath);
     },
-    function errorCallback(error) {
+    error: function errorCallback(error) {
       error = error || new Error('Bad gateway');
       error.status = 502;
-      console.log('errorCallback', error);
       next(error);
     }
-  );
+  });
 });
 
 router.get('/logout', function logout(req, res, next) {
