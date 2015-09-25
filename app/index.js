@@ -1,5 +1,6 @@
-var express       = require('express');
 var path          = require('path');
+
+var express       = require('express');
 var logger        = require('morgan');
 var debug         = require('debug')('caliopen.web:app');
 var cookieParser  = require('cookie-parser');
@@ -24,7 +25,16 @@ nunjucks.configure(path.resolve(__dirname, 'views'), {
   express: app
 });
 
-// app.use(express.static(path.join(__dirname, 'public')));
+// FIXME: Use config
+// Serve frontend app from caliopen/frontend/dist
+var staticAppPath = path.resolve(__dirname, '..', '..', 'frontend', 'dist');
+// FIXME: Use config
+debug(
+	'Registering static frontend app at ',
+	staticAppPath,
+	'to be served under /app'
+);
+app.use('/app', express.static(staticAppPath));
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
