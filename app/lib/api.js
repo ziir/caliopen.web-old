@@ -3,7 +3,7 @@ var http = require('http');
 var ObjectAssign = Object.assign || require('object-assign');
 
 function query(params) {
-  var options = ObjectAssign({}, params, this.defaults);
+  var options = ObjectAssign({}, this.defaults, params);
 
   console.log('Outgoing API query', '\n', options);
 
