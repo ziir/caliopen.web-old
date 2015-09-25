@@ -1,0 +1,9 @@
+{
+  "username": "julien.muetton@gandi.net",
+  "tokens": {
+    "access_token": "31882962150c107b8a1ed9f1d1605d0febe5953f",
+    "expires_in": 3600,
+    "refresh_token": "25ba837ba17f13a8b7e2b76f6c5a308de0d90b410fd06337b7cab52ae1e7d072738ee7df3564de1f"
+  },
+  "user_id": "2f1faadb-9032-42df-a0fe-9331e619b40c"
+}
