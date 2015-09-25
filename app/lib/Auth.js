@@ -21,7 +21,7 @@ function signup(params) {
   );
 }
 
-// username, password, success, error
+// username, password, response, success, error
 function authenticate(params) {
   var config = this.config;
 
@@ -68,6 +68,7 @@ var Auth = function(config) {
   this.config = config;
 
   this.defaults = {
+    /* These defaults souldn't need be overidden */
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -76,9 +77,10 @@ var Auth = function(config) {
     port: this.config.api.port,
     method: 'POST',
 
-    response: function defaultResponseCallback() {},
-    success: function defaultSuccessCallback() {},
-    error: function defaultErrorCallback() {}
+    /* But you might want to override these */
+    response: function defaultResponseCallback(response) {},
+    success: function defaultSuccessCallback(user) {},
+    error: function defaultErrorCallback(error) {}
   };
 }
 

@@ -53,7 +53,7 @@ router.post('/login', function login(req, res, next) {
         res.status(response.statusCode);
       }
     },
-    success: function successCallback() {
+    success: function successCallback(user) {
       seal.encode(
         user,
         req.config.seal.secret,
