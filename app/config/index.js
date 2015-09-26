@@ -12,7 +12,7 @@ module.exports = function envConfig(env) {
     filename = 'development.yaml';
   }
 
-  var config = YAML.load(path.resolve(filename));
+  var config = YAML.load(path.resolve(__dirname, '..', '..', filename));
 
   return config;
 };
