@@ -5,7 +5,6 @@ frontend:
 api:
   prefix: api
   version: v1
-  suffix: api
   hostname: localhost
   port: 6543
   auth: authentications

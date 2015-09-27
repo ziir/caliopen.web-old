@@ -14,7 +14,6 @@ function signup(params) {
       path: path.join(
         config.api.prefix,
         config.api.version,
-        config.api.suffix,
         config.api.user
       )
     }, params)
@@ -30,7 +29,6 @@ function authenticate(params) {
       path: path.join(
         config.api.prefix,
         config.api.version,
-        config.api.suffix,
         config.api.auth
       )
     }, params)
@@ -46,7 +44,6 @@ function refreshAccessToken(params) {
       path: path.join(
         config.api.prefix,
         config.api.version,
-        config.api.suffix,
         config.api.tokens
       )
     }, params)
